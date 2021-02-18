@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library</title>
+    <style>
+        table, th, tr, td {border: 1px solid black;}
+        thead {font-weight: bold;}
+    </style>
+</head>
+<body>
+    {% if error %}
+    <div class="error">{{error}}</div>
+    {% endif %}
+    <table>
+        <thead>
+        <th>Album name</th>
+        <th>Author name</th>
+        <th>Genre</th>
+        <th>Release year</th>
+        </thead>
+        <tbody>{% for album in albums %}
+        <tr>
+            <td>{{ album.album_name }}</td>
+            <td>{{ album.author_name }}</td>
+            <td>{{ album.genre }}</td>
+            <td>{{ album.release_year }}</td>
+        </tr>{% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
