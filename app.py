@@ -62,9 +62,9 @@ def handle_delete_album(album_id):
 @app.route('/update-album/<int:album_id>', methods=['GET', 'POST'])
 def handle_update_album(album_id):
     if request.method == 'POST':
-        return handlers.update_album(album_id, request.form)
+        return handlers.update_album(album_id, **request.form)
     return handlers.update_album_display(album_id)
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)

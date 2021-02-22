@@ -22,6 +22,11 @@ def add_album(form_data):
         data = {'id': db.get_available_id()}
         for key in keys:
             data[key] = form_data.get(key)
+            if key == 'release_year':
+                try:
+                    data[key] = int(form_data.get(key))
+                except ValueError:
+                    data[key] = 0
         db.add_album(data)
         return redirect(url_for('handle_list_display'))
     else:
@@ -53,12 +58,16 @@ def main_display():
     return render_template('index.html', error=None, urls=URLS_DICT, db_stat=db.get_stats())
 
 
-def update_album(album_id: int, form_data):
+def update_album(album_id: int, **form_data):
     form = UpdateAlbumForm()
     if form.validate_on_submit():
         if db.get_by_id(album_id) == {}:
             return redirect(url_for('handle_add_album'))
-        db.update_by_id(album_id, **form_data)
+        data = form_data
+        if 'release_year' in data.keys():
+            r_year = data.get('release_year', 0)
+            data['release_year'] = int(r_year)
+        db.update_by_id(album_id, **data)
         return redirect(url_for('handle_list_display'))
     else:
         error = error_message(form.errors)
