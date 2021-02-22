@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+{% block header %}
+<title>Dodaj nową pozycję</title>
+{% endblock %}
+{% block content %}
+<div id="conteiner">
+    <form class="grid_container" method="POST" action="{{ url_for('handle_add_album') }}">
+        {{ form.hidden_tag() }}
+        {% for field in form if field.widget.input_type != 'hidden' %}
+            {% if field.widget.input_type != 'submit' %}
+                {{ field.label(class_="one") }}
+            {% endif %}
+            {{ field(class_="two") }}
+        {% endfor %}
+    </form>
+</div>
+{% endblock %}

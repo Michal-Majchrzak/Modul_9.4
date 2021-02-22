@@ -12,11 +12,12 @@ class PseudoDataBase:
         self.albums = {}
         self.load_all()
 
-    def add_album(self, album_id: int, data: dict):
-        self.albums[album_id] = data
+    def add_album(self, data: dict):
+        self.albums[data.get('id')] = data
         self.save_all()
 
     def change_db_name(self, name: str):
+        self.DB_NAME = name
         self.DB_FILE_PATH = path.join(DATA_DIR_PATH, name)
         self.load_all()
 
@@ -49,6 +50,16 @@ class PseudoDataBase:
         if album_id in self.albums.keys():
             return self.albums[album_id]
         return {}
+
+    def get_number_of_entries(self):
+        return len(self.albums.keys())
+
+    def get_stats(self) -> dict:
+        return_dict = {
+            'library_name': self.DB_NAME,
+            'entries_count': self.get_number_of_entries()
+        }
+        return return_dict
 
     def load_all(self):
         try:

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block header %}{% endblock %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h3>Plik: {{ db_stat.library_name }}</h3>
+    <h3>Zapisane pozycje: {{ db_stat.entries_count}}</h3>
+    <h3>Nawigacja:</h3>
+    <ul>
+    {% for key, value in urls.items() %}
+        <li><a href="{{ url_for(value) }}">{{ key }}</a></li>
+    {% endfor %}
+    </ul>
+    {% if error %}<div class="error">{{ error }}</div> {% endif %}
+    {% block content %}{% endblock %}
+</body>
+</html>

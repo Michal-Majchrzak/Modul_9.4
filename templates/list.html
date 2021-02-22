@@ -1,0 +1,22 @@
+{% extends 'index.html' %}
+{% block header %}
+<title>Lista albumów</title>
+{% endblock %}
+{% block content %}
+<div class="list-grid">
+    <div class="list-header">ID #</div>
+    <div class="list-header">Album name</div>
+    <div class="list-header">Author</div>
+    <div class="list-header">Genre</div>
+    <div class="list-header">Release year</div>
+    <div class="list-header"></div>
+    {% for album in albums %}
+    <div class="list-body">{{ album.id }}</div>
+    <div class="list-body"><a href="{{ url_for('handle_update_album', album_id=album.id) }}">{{ album.album_name }}</a></div>
+    <div class="list-body">{{ album.author_name }}</div>
+    <div class="list-body">{{ album.genre }}</div>
+    <div class="list-body">{{ album.release_year }}</div>
+    <div class="list-body"><a href="{{ url_for('handle_delete_album', album_id=album.id) }}">[ usuń ]</a></div>
+    {% endfor %}
+</div>
+{% endblock %}

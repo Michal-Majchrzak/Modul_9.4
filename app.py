@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 import api
 import handlers
 
@@ -37,9 +37,33 @@ def delete_album(album_id):
     return api.delete_album_by_id(album_id)
 
 
-@app.route('/')
-def display_list():
-    return handlers.display_all_albums()
+@app.route('/', methods=['GET'])
+def handle_main_display():
+    return handlers.main_display()
+
+
+@app.route('/add-album/', methods=['GET', 'POST'])
+def handle_add_album():
+    if request.method == 'POST':
+        return handlers.add_album(request.form)
+    return handlers.add_album_display()
+
+
+@app.route('/albums-list/', methods=['GET'])
+def handle_list_display():
+    return handlers.list_display()
+
+
+@app.route('/delete/<int:album_id>', methods=['GET'])
+def handle_delete_album(album_id):
+    return handlers.delete_album(album_id)
+
+
+@app.route('/update-album/<int:album_id>', methods=['GET', 'POST'])
+def handle_update_album(album_id):
+    if request.method == 'POST':
+        return handlers.update_album(album_id, request.form)
+    return handlers.update_album_display(album_id)
 
 
 if __name__ == '__main__':

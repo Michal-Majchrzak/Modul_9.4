@@ -6,12 +6,13 @@ def add_album():
     if not request.json:
         abort(400)
     data = {
+        'id': db.get_available_id(),
         'album_name': request.json.get('album_name', ''),
         'author_name': request.json.get('author_name', ''),
         'genre': request.json.get('genre', ''),
         'release_year': request.json.get('release_year', 0)
     }
-    db.add_album(db.get_available_id(), data)
+    db.add_album(data)
     return jsonify({'album': data}), 201
 
 

@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+{% block header %}
+<title>Zaktualizuj</title>
+{% endblock %}
+{% block content %}
+<div id="conteiner">
+    <form class="grid_container" method="POST" action="{{ url_for('handle_update_album', album_id=item_id)}}">
+        {{ form.hidden_tag() }}
+        {% for field in form if field.widget.input_type != 'hidden' %}
+            {% if field.widget.input_type != 'submit' %}
+                {{ field.label(class_="one") }}
+            {% endif %}
+            {{ field(class_="two") }}
+        {% endfor %}
+    </form>
+</div>
+{% endblock %}
