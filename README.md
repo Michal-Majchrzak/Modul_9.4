@@ -17,8 +17,13 @@ DELETE http://localhost:5000/api/library/albums/{numer id} - usuwa album o wybra
 
 *struktura obiektu:
 {
+
     "album_name": 	(oczekiwany string, pole wymagane),
+    
     "author_name": 	(oczekiwany string),
+    
     "genre": 		(oczekiwany string),
+    
     "release_year": 	(oczekiwany integer)
+    
 }
